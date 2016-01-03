@@ -10,18 +10,7 @@
 export default function RouterListener($rootScope, $urlRouter, $stateParams, ngUiStateChangeActions) {
 
   $rootScope.$on('$stateChangeStart', ngUiStateChangeActions.onStateChangeStart);
-
-  $rootScope.$on('$locationChangeSuccess', (evt) => {
-    evt.preventDefault();
-    $urlRouter.sync();
-    ngUiStateChangeActions.onStateChangeSuccess();
-  });
-
-  let unsubcribeStateChangeListener = $rootScope.$on('$stateChangeSuccess', () => {
-    ngUiStateChangeActions.onStateChangeSuccess();
-    unsubcribeStateChangeListener();
-  });
-
+  $rootScope.$on('$stateChangeSuccess', ngUiStateChangeActions.onStateChangeSuccess);
   $rootScope.$on('$stateChangeError', ngUiStateChangeActions.onStateChangeError);
   $rootScope.$on('$stateNotFound', ngUiStateChangeActions.onStateNotFound);
 }
